@@ -475,28 +475,6 @@
     (ding)))
 (setq ring-bell-function 'my-bell-function)
 
-
-;; http-post (for UberController)
-
-(defvar last-http-post-url nil)
-
-(require 'http-post)
-
-;; (defun post-buffer (arg)
-;;   (interactive "P")
-;;   (let ((url (if (or arg (not last-http-post-url))
-;;                  (read-from-minibuffer "URL:" last-http-post-url)
-;;                last-http-post-url)))
-;;     (setq last-http-post-url url)
-;;     (http-post-body url (buffer-string) "text/plaintext" 'utf-8)))
-
-(defun post-buffer (arg)
-  (interactive "P")
-  (let ((url (if arg (read-from-minibuffer "URL:")
-               last-http-post-url)))
-    (setq last-http-post-url url)
-    (http-post-body url (buffer-string) "text/plaintext" 'utf-8)))
-
 (global-hl-line-mode 1)
 (set-face-background 'hl-line "#222")
 
