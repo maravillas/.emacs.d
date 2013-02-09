@@ -10,13 +10,13 @@
 (define-key global-map "\C-cc" 'org-capture)
 
 ;; windows
-(global-set-key [C-M-down] 'win-resize-minimize-vert)
-(global-set-key [C-M-up] 'win-resize-enlarge-vert)
-(global-set-key [C-M-left] 'win-resize-minimize-horiz)
+(global-set-key [C-M-down]  'win-resize-minimize-vert)
+(global-set-key [C-M-up]    'win-resize-enlarge-vert)
+(global-set-key [C-M-left]  'win-resize-minimize-horiz)
 (global-set-key [C-M-right] 'win-resize-enlarge-horiz)
-(global-set-key [C-M-up] 'win-resize-enlarge-horiz)
-(global-set-key [C-M-down] 'win-resize-minimize-horiz)
-(global-set-key [C-M-left] 'win-resize-enlarge-vert)
+(global-set-key [C-M-up]    'win-resize-enlarge-horiz)
+(global-set-key [C-M-down]  'win-resize-minimize-horiz)
+(global-set-key [C-M-left]  'win-resize-enlarge-vert)
 (global-set-key [C-M-right] 'win-resize-minimize-vert)
 
 ;; ibuffer
@@ -40,8 +40,8 @@
 
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C->")     'mc/mark-next-like-this)
+(global-set-key (kbd "C-<")     'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 ;; ace-jump-mode
@@ -49,19 +49,25 @@
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
 
-;; definition jumping
+;; Definition jumping
 
 (global-set-key (kbd "C-x C-i") 'ido-imenu)
 
+;; Smart M-x
 
-;; Keybinds from an emacs-starter-kit
-;; http://eschulte.me/emacs-starter-kit/starter-kit-bindings.html
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
-;; Align your code in a pretty way.
+;; Expand region (increases selected region by semantic units)
+
+(global-set-key (if is-mac (kbd "C-@") (kbd "C-'")) 'er/expand-region)
+
+;; Align code with regexps
 
 (global-set-key (kbd "C-x \\") 'align-regexp)
 
-;; Completion that uses many different methods to find options.
+;; hippie-expand completion
 
 (global-set-key (kbd "M-/") 'hippie-expand)
 
@@ -98,7 +104,5 @@
   (lambda () (interactive)
     (let ((case-fold-search isearch-case-fold-search))
       (occur (if isearch-regexp isearch-string (regexp-quote isearch-string))))))
-
-;; End emacs-starter-key stuff
 
 (provide 'key-bindings)

@@ -11,9 +11,36 @@
  '(sql-mysql-program "/usr/local/mysql/bin/mysql")
  '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify)))
 
+;; Setup load path
+
+(add-to-list 'load-path user-emacs-directory)
+
+;; Default the font size to 11pt
+
 (set-face-attribute 'default nil :height 110)
 
 (setq frame-title-format '("" "%b - Emacs " emacs-version))
+
+;; Save point position between sessions
+
+(require 'saveplace)
+(setq-default save-place t)
+(setq save-place-file (expand-file-name ".places" user-emacs-directory))
+
+;; Are we on a mac?
+
+(setq is-mac (equal system-type 'darwin))
+
+;; packages
+
+(require 'package)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
+
+;; Bleeding edge (git head for nrepl, and others?)
+;;(add-to-list 'package-archives
+;;             '("marmalade" . "http://melpa.milkbox.net/packages/"))
+(package-initialize)
 
 (setq mac-option-key-is-meta nil)
 (setq mac-command-key-is-meta t)
@@ -28,20 +55,7 @@
 
 (setq font-lock-verbose nil)
 
-(add-to-list 'load-path "~/.emacs.d")
-
 (tool-bar-mode 0)
-
-;; Marmalade
-
-(require 'package)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
-
-;; Bleeding edge (git head for nrepl, and others?)
-;;(add-to-list 'package-archives
-;;             '("marmalade" . "http://melpa.milkbox.net/packages/"))
-(package-initialize)
 
 ;; magit
 
