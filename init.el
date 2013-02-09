@@ -10,7 +10,9 @@
  '(show-paren-mode t)
  '(sql-mysql-program "/usr/local/mysql/bin/mysql")
  '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify)))
- 
+
+(set-face-attribute 'default nil :height 110)
+
 (setq frame-title-format '("" "%b - Emacs " emacs-version))
 
 (setq mac-option-key-is-meta nil)
@@ -432,31 +434,6 @@
 (global-set-key (kbd "C-c C-e") 'slime-eval-defun)
 (global-set-key [f11] 'revert-buffer)
 
-;; Font size increase/decrease
-
-;; note this as +/-?
-
-;; (defun sacha/increase-font-size ()
-;;   (interactive)
-;;   (set-face-attribute 'default
-;;                       nil
-;;                       :height
-;;                       (ceiling (* 1.10
-;;                                   (face-attribute 'default :height)))))
-;; (defun sacha/decrease-font-size ()
-;;   (interactive)
-;;   (set-face-attribute 'default
-;;                       nil
-;;                       :height
-;;                       (floor (* 0.9
-;;                                 (face-attribute 'default :height)))))
-
-;; (global-set-key (kbd "C-+") 'sacha/increase-font-size)
-;; (global-set-key (kbd "C--") 'sacha/decrease-font-size) 
-
-(define-key global-map (kbd "C-+") 'text-scale-increase)
-(define-key global-map (kbd "C--") 'text-scale-decrease)
-
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -513,6 +490,11 @@
 ;; Completion that uses many different methods to find options.
 
 (global-set-key (kbd "M-/") 'hippie-expand)
+
+;; Font size
+
+(define-key global-map (kbd "C-+") 'text-scale-increase)
+(define-key global-map (kbd "C--") 'text-scale-decrease)
 
 ;; Jump to a definition in the current file. (This is awesome.)
 
