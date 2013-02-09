@@ -28,10 +28,6 @@
 
 (setq font-lock-verbose nil)
 
-(setq magit-git-executable "/usr/bin/git")
-
-(global-set-key (kbd "C-x m") 'magit-status)
-
 (add-to-list 'load-path "~/.emacs.d")
 
 (tool-bar-mode 0)
@@ -47,6 +43,13 @@
 ;;             '("marmalade" . "http://melpa.milkbox.net/packages/"))
 (package-initialize)
 
+;; magit
+
+(setq magit-git-executable "/usr/bin/git")
+(global-set-key (kbd "C-x g") 'magit-status)
+
+;; Backup file naming
+
 (defun make-backup-file-name (FILE)                                             
   (let ((dirname (concat "~/.backups/emacs/"                                    
                          (format-time-string "%y/%m/%d/"))))                    
@@ -60,7 +63,6 @@
 
 (add-to-list 'auto-mode-alist '("\.cljs$" . clojure-mode))
 
-;; clojure-test-mode
 (require 'clojure-test-mode)
 
 ;; org-mode
@@ -430,7 +432,7 @@
 
 (global-set-key [C-x k] 'kill-this-buffer)
 (global-set-key (kbd "C-c o") 'occur)
-(global-set-key (kbd "C-x g") 'rgrep)
+(global-set-key (kbd "C-x r") 'rgrep)
 (global-set-key (kbd "C-c C-e") 'slime-eval-defun)
 (global-set-key [f11] 'revert-buffer)
 
@@ -542,3 +544,32 @@ Symbols matching the text at point are put first in the completion list."
       (goto-char position))))
 
 (global-set-key (kbd "C-x C-i") 'ido-imenu)
+
+;; File finding
+
+(global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
+(global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
+(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
+(global-set-key (kbd "C-x C-p") 'find-file-at-point)
+(global-set-key (kbd "C-c y") 'bury-buffer)
+(global-set-key (kbd "C-c r") 'revert-buffer)
+(global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
+
+;; Indentation help
+
+(global-set-key (kbd "C-x ^") 'join-line)
+
+;; Start eshell or switch to it if it's active.
+
+(global-set-key (kbd "C-x m") 'eshell)
+
+;;Start a new eshell even if one is active.
+
+(global-set-key (kbd "C-x M") (lambda () (interactive) (eshell t)))
+
+;; Activate occur easily inside isearch
+
+(define-key isearch-mode-map (kbd "C-o")
+  (lambda () (interactive)
+    (let ((case-fold-search isearch-case-fold-search))
+      (occur (if isearch-regexp isearch-string (regexp-quote isearch-string))))))
