@@ -573,3 +573,57 @@ Symbols matching the text at point are put first in the completion list."
   (lambda () (interactive)
     (let ((case-fold-search isearch-case-fold-search))
       (occur (if isearch-regexp isearch-string (regexp-quote isearch-string))))))
+
+;; Installed packages:
+
+;; android-mode      0.2.1       installed  Minor mode for Android application development
+;; buffer-move       0.4         installed  Swap buffers between windows
+;; cljsbuild-mode    0.2.0       installed  A minor mode for the ClojureScript 'lein cljsbuild' command
+;; clojure-mode      1.11.5      installed  Major mode for Clojure code
+;; clojure-test-mode 1.6.0       installed  Minor mode for Clojure tests
+;; clojurescript-mode 0.5        installed  Major mode for ClojureScript code
+;; coffee-mode       0.4.1       installed  Major mode for CoffeeScript files
+;; csv-mode          1.50        installed  Major mode for editing comma-separated value files
+;; elein             0.2.2       installed  Running leiningen commands from emacs
+;; find-file-in-git-repo 0.1.2   installed  Utility to find files in a git repo
+;; find-file-in-project 3.2      installed  Find files in a project quickly.
+;; haml-mode         3.0.14      installed  Major mode for editing Haml files
+;; ido-yes-or-no     1.1         installed  Use Ido to answer yes-or-no questions
+;; js2-mode          20090814    installed  Improved JavaScript editing mode
+;; magit             1.2.0       installed  Control Git from Emacs.
+;; magithub          0.2         installed  Magit extensions for using GitHub
+;; markdown-mode     1.8.1       installed  Emacs Major mode for Markdown-formatted text files
+;; multiple-cursors  1.1.3       installed  Multiple cursors for Emacs.
+;; nrepl             0.1.6       installed  Client for Clojure nREPL
+;; paredit           22          installed  Minor mode for editing parentheses  -*- Mode: Emacs-Lisp -*-
+;; rvm               1.2         installed  Emacs integration for rvm
+;; sass-mode         3.0.14      installed  Major mode for editing Sass files
+;; scss-mode         0.5.0       installed  Major mode for editing SCSS files
+;; slime             20100404.1  installed  Superior Lisp Interaction Mode for Emacs
+;; slime-repl        20100404    installed  Read-Eval-Print Loop written in Emacs Lisp
+;; yaml-mode         0.0.7       installed  Major mode for editing YAML files  android-mode      0.2.1       installed  Minor mode for Android application development
+;; buffer-move       0.4         installed  Swap buffers between windows
+;; cljsbuild-mode    0.2.0       installed  A minor mode for the ClojureScript 'lein cljsbuild' command
+;; clojure-mode      1.11.5      installed  Major mode for Clojure code
+;; clojure-test-mode 1.6.0       installed  Minor mode for Clojure tests
+;; clojurescript-mode 0.5        installed  Major mode for ClojureScript code
+;; coffee-mode       0.4.1       installed  Major mode for CoffeeScript files
+;; csv-mode          1.50        installed  Major mode for editing comma-separated value files
+;; elein             0.2.2       installed  Running leiningen commands from emacs
+;; find-file-in-git-repo 0.1.2   installed  Utility to find files in a git repo
+;; find-file-in-project 3.2      installed  Find files in a project quickly.
+;; haml-mode         3.0.14      installed  Major mode for editing Haml files
+;; ido-yes-or-no     1.1         installed  Use Ido to answer yes-or-no questions
+;; js2-mode          20090814    installed  Improved JavaScript editing mode
+;; magit             1.2.0       installed  Control Git from Emacs.
+;; magithub          0.2         installed  Magit extensions for using GitHub
+;; markdown-mode     1.8.1       installed  Emacs Major mode for Markdown-formatted text files
+;; multiple-cursors  1.1.3       installed  Multiple cursors for Emacs.
+;; nrepl             0.1.6       installed  Client for Clojure nREPL
+;; paredit           22          installed  Minor mode for editing parentheses  -*- Mode: Emacs-Lisp -*-
+;; rvm               1.2         installed  Emacs integration for rvm
+;; sass-mode         3.0.14      installed  Major mode for editing Sass files
+;; scss-mode         0.5.0       installed  Major mode for editing SCSS files
+;; slime             20100404.1  installed  Superior Lisp Interaction Mode for Emacs
+;; slime-repl        20100404    installed  Read-Eval-Print Loop written in Emacs Lisp
+;; yaml-mode         0.0.7       installed  Major mode for editing YAML files
