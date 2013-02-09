@@ -14,6 +14,7 @@
 ;; Setup load path
 
 (add-to-list 'load-path user-emacs-directory)
+(add-to-list 'load-path (expand-file-name "setups" user-emacs-directory))
 
 ;; Default the font size to 11pt
 
@@ -37,10 +38,41 @@
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/"))
 
-;; Bleeding edge (git head for nrepl, and others?)
+;; Bleeding edge
+
 ;;(add-to-list 'package-archives
 ;;             '("marmalade" . "http://melpa.milkbox.net/packages/"))
+
 (package-initialize)
+
+(require 'sane-defaults)
+
+;; Setup environment variables from the user's shell.
+
+(when is-mac (exec-path-from-shell-initialize))
+
+;; Setup extensions
+
+;(eval-after-load 'ido '(require 'setup-ido))
+;(eval-after-load 'org '(require 'setup-org))
+(eval-after-load 'dired '(require 'setup-dired))
+;(eval-after-load 'magit '(require 'setup-magit))
+;(eval-after-load 'grep '(require 'setup-rgrep))
+;(eval-after-load 'shell '(require 'setup-shell))
+(require 'setup-hippie)
+;(require 'setup-yasnippet)
+;(require 'setup-perspective)
+(require 'setup-ffip)
+(require 'setup-html-mode)
+;(require 'setup-paredit)
+
+;; Language setup
+
+;(eval-after-load 'js2-mode '(require 'setup-js2-mode))
+;(eval-after-load 'ruby-mode '(require 'setup-ruby-mode))
+(eval-after-load 'clojure-mode '(require 'setup-clojure-mode))
+;(eval-after-load 'markdown-mode '(require 'setup-markdown-mode))
+
 
 (setq mac-option-key-is-meta nil)
 (setq mac-command-key-is-meta t)
@@ -70,11 +102,7 @@
         (make-directory dirname t))                                             
     (concat dirname (file-name-nondirectory FILE))))
 
-;; clojure-mode
-
-(require 'clojure-mode)
-
-(add-to-list 'auto-mode-alist '("\.cljs$" . clojure-mode))
+;; clojure-test-mode
 
 (require 'clojure-test-mode)
 
