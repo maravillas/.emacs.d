@@ -46,7 +46,6 @@
 ;; magit
 
 (setq magit-git-executable "/usr/bin/git")
-(global-set-key (kbd "C-x g") 'magit-status)
 
 ;; Backup file naming
 
@@ -70,13 +69,8 @@
 (require 'org-install)
 
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
 (add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
 (setq org-agenda-files (list "~/org/todo.org"))
-
-(define-key global-map "\C-cc" 'org-capture)
 
 ;; color-theme
 
@@ -234,70 +228,6 @@
      (it 'defun)
      (do-it 'defun)))
 
-;; windows
-
-(defun win-resize-top-or-bot ()
-  "Figure out if the current window is on top, bottom or in the middle"
-  (let* ((win-edges (window-edges))
-	 (this-window-y-min (nth 1 win-edges))
-	 (this-window-y-max (nth 3 win-edges))
-	 (fr-height (frame-height)))
-    (cond
-     ((eq 0 this-window-y-min) "top")
-     ((eq (- fr-height 1) this-window-y-max) "bot")
-     (t "mid"))))
-
-(defun win-resize-left-or-right ()
-  "Figure out if the current window is to the left, right or in the middle"
-  (let* ((win-edges (window-edges))
-	 (this-window-x-min (nth 0 win-edges))
-	 (this-window-x-max (nth 2 win-edges))
-	 (fr-width (frame-width)))
-    (cond
-     ((eq 0 this-window-x-min) "left")
-     ((eq (+ fr-width 4) this-window-x-max) "right")
-     (t "mid"))))
-
-(defun win-resize-enlarge-horiz ()
-  (interactive)
-  (cond
-   ((equal "top" (win-resize-top-or-bot)) (enlarge-window -1))
-   ((equal "bot" (win-resize-top-or-bot)) (enlarge-window 1))
-   ((equal "mid" (win-resize-top-or-bot)) (enlarge-window -1))
-   (t (message "nil"))))
-
-(defun win-resize-minimize-horiz ()
-  (interactive)
-  (cond
-   ((equal "top" (win-resize-top-or-bot)) (enlarge-window 1))
-   ((equal "bot" (win-resize-top-or-bot)) (enlarge-window -1))
-   ((equal "mid" (win-resize-top-or-bot)) (enlarge-window 1))
-   (t (message "nil"))))
-
-(defun win-resize-enlarge-vert ()
-  (interactive)
-  (cond
-   ((equal "left" (win-resize-left-or-right)) (enlarge-window-horizontally -1))
-   ((equal "right" (win-resize-left-or-right)) (enlarge-window-horizontally 1))
-   ((equal "mid" (win-resize-left-or-right)) (enlarge-window-horizontally -1))))
-
-(defun win-resize-minimize-vert ()
-  (interactive)
-  (cond
-   ((equal "left" (win-resize-left-or-right)) (enlarge-window-horizontally 1))
-   ((equal "right" (win-resize-left-or-right)) (enlarge-window-horizontally -1))
-   ((equal "mid" (win-resize-left-or-right)) (enlarge-window-horizontally 1))))
-
-(global-set-key [C-M-down] 'win-resize-minimize-vert)
-(global-set-key [C-M-up] 'win-resize-enlarge-vert)
-(global-set-key [C-M-left] 'win-resize-minimize-horiz)
-(global-set-key [C-M-right] 'win-resize-enlarge-horiz)
-(global-set-key [C-M-up] 'win-resize-enlarge-horiz)
-(global-set-key [C-M-down] 'win-resize-minimize-horiz)
-(global-set-key [C-M-left] 'win-resize-enlarge-vert)
-(global-set-key [C-M-right] 'win-resize-minimize-vert)
-
-
 ;; SLIME
 
 (defun my-slime-repl-mode-hook ()
@@ -326,7 +256,6 @@
 
 ;; ibuffer
 
-(global-set-key (kbd "C-x C-b") 'ibuffer)
 (autoload 'ibuffer "ibuffer" "List buffers." t)
 
 (setq ibuffer-saved-filter-groups
@@ -430,12 +359,6 @@
 
 (setq column-number-mode t)
 
-(global-set-key [C-x k] 'kill-this-buffer)
-(global-set-key (kbd "C-c o") 'occur)
-(global-set-key (kbd "C-x r") 'rgrep)
-(global-set-key (kbd "C-c C-e") 'slime-eval-defun)
-(global-set-key [f11] 'revert-buffer)
-
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -462,117 +385,27 @@
 ;; buffer-move
 (require 'buffer-move)
 
-(global-set-key (kbd "<C-S-up>")     'buf-move-up)
-(global-set-key (kbd "<C-S-down>")   'buf-move-down)
-(global-set-key (kbd "<C-S-left>")   'buf-move-left)
-(global-set-key (kbd "<C-S-right>")  'buf-move-right)
-
 ;; multiple-cursors
 (require 'multiple-cursors)
-
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 ;; nrepl
 (add-hook 'nrepl-interaction-mode-hook
   'nrepl-turn-on-eldoc-mode)
 
+;; cljsbuild-mode
+
 (require 'cljsbuild-mode)
 
-;; Keybinds from emacs-starter-kit
-;; http://eschulte.me/emacs-starter-kit/starter-kit-bindings.html
 
-;;Align your code in a pretty way.
+;; Functions (load all files in defuns-dir)
+(setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
+(dolist (file (directory-files defuns-dir t "\\w+"))
+  (when (file-regular-p file)
+    (load file)))
 
-(global-set-key (kbd "C-x \\") 'align-regexp)
+(require 'key-bindings)
 
-;; Completion that uses many different methods to find options.
 
-(global-set-key (kbd "M-/") 'hippie-expand)
-
-;; Font size
-
-(define-key global-map (kbd "C-+") 'text-scale-increase)
-(define-key global-map (kbd "C--") 'text-scale-decrease)
-
-;; Jump to a definition in the current file. (This is awesome.)
-
-;; https://gist.github.com/magnars/2360578
-(defun ido-imenu ()
-  "Update the imenu index and then use ido to select a symbol to navigate to.
-Symbols matching the text at point are put first in the completion list."
-  (interactive)
-  (imenu--make-index-alist)
-  (let ((name-and-pos '())
-        (symbol-names '()))
-    (flet ((addsymbols (symbol-list)
-                       (when (listp symbol-list)
-                         (dolist (symbol symbol-list)
-                           (let ((name nil) (position nil))
-                             (cond
-                              ((and (listp symbol) (imenu--subalist-p symbol))
-                               (addsymbols symbol))
- 
-                              ((listp symbol)
-                               (setq name (car symbol))
-                               (setq position (cdr symbol)))
- 
-                              ((stringp symbol)
-                               (setq name symbol)
-                               (setq position (get-text-property 1 'org-imenu-marker symbol))))
- 
-                             (unless (or (null position) (null name))
-                               (add-to-list 'symbol-names name)
-                               (add-to-list 'name-and-pos (cons name position))))))))
-      (addsymbols imenu--index-alist))
-    ;; If there are matching symbols at point, put them at the beginning of `symbol-names'.
-    (let ((symbol-at-point (thing-at-point 'symbol)))
-      (when symbol-at-point
-        (let* ((regexp (concat (regexp-quote symbol-at-point) "$"))
-               (matching-symbols (delq nil (mapcar (lambda (symbol)
-                                                     (if (string-match regexp symbol) symbol))
-                                                   symbol-names))))
-          (when matching-symbols
-            (sort matching-symbols (lambda (a b) (> (length a) (length b))))
-            (mapc (lambda (symbol) (setq symbol-names (cons symbol (delete symbol symbol-names))))
-                  matching-symbols)))))
-    (let* ((selected-symbol (ido-completing-read "Symbol? " symbol-names))
-           (position (cdr (assoc selected-symbol name-and-pos))))
-      (goto-char position))))
-
-(global-set-key (kbd "C-x C-i") 'ido-imenu)
-
-;; File finding
-
-(global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
-(global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
-(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
-(global-set-key (kbd "C-x C-p") 'find-file-at-point)
-(global-set-key (kbd "C-c y") 'bury-buffer)
-(global-set-key (kbd "C-c r") 'revert-buffer)
-(global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
-
-;; Indentation help
-
-(global-set-key (kbd "C-x ^") 'join-line)
-
-;; Start eshell or switch to it if it's active.
-
-(global-set-key (kbd "C-x m") 'eshell)
-
-;;Start a new eshell even if one is active.
-
-(global-set-key (kbd "C-x M") (lambda () (interactive) (eshell t)))
-
-;; Activate occur easily inside isearch
-
-(define-key isearch-mode-map (kbd "C-o")
-  (lambda () (interactive)
-    (let ((case-fold-search isearch-case-fold-search))
-      (occur (if isearch-regexp isearch-string (regexp-quote isearch-string))))))
 
 ;; Installed packages:
 
