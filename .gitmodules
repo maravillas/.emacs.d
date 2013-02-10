@@ -1,0 +1,33 @@
+[submodule "site-lisp/ace-jump-mode"]
+	path = site-lisp/ace-jump-mode
+	url = https://github.com/winterTTr/ace-jump-mode.git
+[submodule "site-lisp/browse-kill-ring"]
+	path = site-lisp/browse-kill-ring
+	url = https://github.com/T-J-Teru/browse-kill-ring.git
+[submodule "site-lisp/clj-refactor"]
+	path = site-lisp/clj-refactor
+	url = https://github.com/magnars/clj-refactor.el.git
+[submodule "site-lisp/coffee-mode"]
+	path = site-lisp/coffee-mode
+	url = https://github.com/defunkt/coffee-mode.git
+[submodule "site-lisp/dash"]
+	path = site-lisp/dash
+	url = https://github.com/magnars/dash.el.git
+[submodule "site-lisp/find-file-in-project"]
+	path = site-lisp/find-file-in-project
+	url = https://github.com/technomancy/find-file-in-project.git
+[submodule "site-lisp/fill-column-indicator"]
+	path = site-lisp/fill-column-indicator
+	url = https://github.com/alpaker/Fill-Column-Indicator.git
+[submodule "site-lisp/expand-region"]
+	path = site-lisp/expand-region
+	url = https://github.com/magnars/expand-region.el.git
+[submodule "site-lisp/tagedit"]
+	path = site-lisp/tagedit
+	url = https://github.com/magnars/tagedit.git
+[submodule "site-lisp/js2-refactor"]
+	path = site-lisp/js2-refactor
+	url = https://github.com/magnars/js2-refactor.el.git
+[submodule "site-lisps/js2-mode"]
+	path = site-lisps/js2-mode
+	url = https://github.com/mooz/js2-mode.git

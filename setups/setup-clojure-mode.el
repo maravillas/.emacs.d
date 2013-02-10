@@ -1,6 +1,6 @@
 (require 'clojure-mode)
 
-(add-to-list 'auto-mode-alist '("\.cljs$" . clojure-mode))
+(require 'clojure-test-mode)
 
 (define-key clojure-mode-map (kbd "C-c C-j") 'clj-jump-to-other-file)
 (define-key clojure-mode-map (kbd "C-c M-j") 'clj-jump-to-other-file-other-window)
@@ -12,6 +12,7 @@
   (save-buffer))
 
 (require 'clj-refactor)
+
 (add-hook 'clojure-mode-hook (lambda ()
                                (clj-refactor-mode 1)
                                (cljr-add-keybindings-with-modifier "C-s-")

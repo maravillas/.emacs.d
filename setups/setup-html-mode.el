@@ -35,8 +35,8 @@
      (define-key html-mode-map (kbd "/") nil)
 
      (require 'tagedit)
-     (define-key html-mode-map (kbd "s-<right>") 'tagedit-forward-slurp-tag)
-     (define-key html-mode-map (kbd "s-<left>") 'tagedit-forward-barf-tag)
+     (define-key html-mode-map (kbd "M-<right>") 'tagedit-forward-slurp-tag)
+     (define-key html-mode-map (kbd "M-<left>") 'tagedit-forward-barf-tag)
      (define-key html-mode-map (kbd "s-k") 'tagedit-kill-attribute)
      (define-key html-mode-map (kbd "s-<return>") 'tagedit-toggle-multiline-tag)
      ))

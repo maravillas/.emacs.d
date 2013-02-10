@@ -11,16 +11,34 @@
  '(sql-mysql-program "/usr/local/mysql/bin/mysql")
  '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify)))
 
-;; Setup load path
+;; Set path to dependencies
+
+(setq site-lisp-dir
+      (expand-file-name "site-lisp" user-emacs-directory))
+
+;; Set up load path
 
 (add-to-list 'load-path user-emacs-directory)
+(add-to-list 'load-path site-lisp-dir)
 (add-to-list 'load-path (expand-file-name "setups" user-emacs-directory))
+
+;; Settings for currently logged in user
+
+(setq user-settings-dir
+      (concat user-emacs-directory "users/" user-login-name))
+(add-to-list 'load-path user-settings-dir)
+
+;; Add external projects to load path
+
+(dolist (project (directory-files site-lisp-dir t "\\w+"))
+  (when (file-directory-p project)
+    (add-to-list 'load-path project)))
 
 ;; Default the font size to 11pt
 
 (set-face-attribute 'default nil :height 110)
 
-(setq frame-title-format '("" "%b - Emacs " emacs-version))
+;; (setq frame-title-format '("" "%b - Emacs " emacs-version))
 
 ;; Save point position between sessions
 
@@ -47,51 +65,113 @@
 
 (require 'sane-defaults)
 
-;; Setup environment variables from the user's shell.
+;; Set up environment variables from the user's shell.
 
 (when is-mac (exec-path-from-shell-initialize))
 
-;; Setup extensions
+;; Set up extensions
 
-;(eval-after-load 'ido '(require 'setup-ido))
-;(eval-after-load 'org '(require 'setup-org))
+(eval-after-load 'ido '(require 'setup-ido))
+(eval-after-load 'org '(require 'setup-org))
 (eval-after-load 'dired '(require 'setup-dired))
-;(eval-after-load 'magit '(require 'setup-magit))
-;(eval-after-load 'grep '(require 'setup-rgrep))
-;(eval-after-load 'shell '(require 'setup-shell))
+(eval-after-load 'magit '(require 'setup-magit))
+;; (eval-after-load 'grep '(require 'setup-rgrep))
+(eval-after-load 'shell '(require 'setup-shell))
+(require 'setup-color-theme)
 (require 'setup-hippie)
-;(require 'setup-yasnippet)
-;(require 'setup-perspective)
+(require 'setup-yasnippet)
+(require 'setup-perspective)
 (require 'setup-ffip)
 (require 'setup-html-mode)
-;(require 'setup-paredit)
+(require 'setup-paredit)
+(require 'setup-linum-mode)
 
 ;; Language setup
 
-;(eval-after-load 'js2-mode '(require 'setup-js2-mode))
-;(eval-after-load 'ruby-mode '(require 'setup-ruby-mode))
+(eval-after-load 'js2-mode '(require 'setup-js2-mode))
+(eval-after-load 'ruby-mode '(require 'setup-ruby-mode))
 (eval-after-load 'clojure-mode '(require 'setup-clojure-mode))
-;(eval-after-load 'markdown-mode '(require 'setup-markdown-mode))
+(eval-after-load 'markdown-mode '(require 'setup-markdown-mode))
+(require 'coffee-mode)
+
+(require 'mode-mappings)
+
+;; Functions (load all files in defuns-dir)
+
+(setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
+(dolist (file (directory-files defuns-dir t "\\w+"))
+  (when (file-regular-p file)
+    (load file)))
+
+(require 'expand-region)
+(require 'multiple-cursors)
+(require 'wgrep)
+
+;; Fill column indicator
+
+(require 'fill-column-indicator)
+(setq fci-rule-color "#111122")
+
+;; Browse kill ring
+
+(require 'browse-kill-ring)
+(setq browse-kill-ring-quit-action 'save-and-restore)
+
+;; Smart M-x is smart
+
+(require 'smex)
+(smex-initialize)
+
+;; Setup key bindings
+
+(require 'key-bindings)
+
+;; Misc
+
+(require 'appearance)
+
+(require 'misc)
+
+(when is-mac (require 'mac))
+
+;; Diminish modeline clutter
+;; FIXME
+;; (require 'diminish)
+;; (diminish 'yas/minor-mode)
+
+;; Elisp go-to-definition with M-. and back again with M-,
+
+(autoload 'elisp-slime-nav-mode "elisp-slime-nav")
+(add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t)))
+(eval-after-load 'elisp-slime-nav '(diminish 'elisp-slime-nav-mode))
+
+;; Emacs server
+
+;; (require 'server)
+;; (unless (server-running-p)
+;;  (server-start))
+
+;; Run at full power please
+
+(put 'downcase-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+
+;; Conclude init by setting up specifics for the current user
+
+(when (file-exists-p user-settings-dir)
+  (mapc 'load (directory-files user-settings-dir nil "^[^#].*el$")))
 
 
-(setq mac-option-key-is-meta nil)
-(setq mac-command-key-is-meta t)
-(setq mac-command-modifier 'meta)
-(setq mac-option-modifier nil)
 
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 2)
-(add-hook 'java-mode-hook (lambda ()
-                            (setq c-basic-offset 2
-                                  tab-width 2)))
 
-(setq font-lock-verbose nil)
 
-(tool-bar-mode 0)
 
-;; magit
 
-(setq magit-git-executable "/usr/bin/git")
+
+
+
+;; merge below into new setup
+
 
 ;; Backup file naming
 
@@ -102,144 +182,16 @@
         (make-directory dirname t))                                             
     (concat dirname (file-name-nondirectory FILE))))
 
-;; clojure-test-mode
-
-(require 'clojure-test-mode)
-
-;; org-mode
-
-(require 'org-install)
-
-(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
-(setq org-agenda-files (list "~/org/todo.org"))
-
-;; color-theme
-
-;; I forget why, but I think 6.5.5 (in marmalade) didn't work
-
-(add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
-(require 'color-theme)
-(eval-after-load "color-theme"
-  '(progn
-     (require 'color-theme-maravillas)
-     (color-theme-maravillas)))
-
-
-;; linum
-
-(require 'linum)
-(add-hook 'find-file-hook (lambda () (linum-mode 1)))
-
 ;; js2-mode
 
-;(add-to-list 'load-path "~/.emacs.d/js2-mode")
-(autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-(setq js-indent-level 2)
+;;(autoload 'js-mode "js")
 
-(autoload 'js-mode "js")
-
-(defun espresso-js2-indent-function ()
- (interactive)
- (save-restriction
-   (widen)
-   (let* ((inhibit-point-motion-hooks t)
-          (parse-status (save-excursion (syntax-ppss (point-at-bol))))
-          (offset (- (current-column) (current-indentation)))
-          (indentation (js--proper-indentation parse-status))
-          node)
-     (save-excursion
-       (back-to-indentation)
-       ;; consecutive declarations in a var statement are nice if
-       ;; properly aligned, i.e:
-       ;;
-       ;; var foo = "bar",
-       ;;     bar = "foo";
-       (setq node (js2-node-at-point))
-       (when (and node
-                  (= js2-NAME (js2-node-type node))
-                  (= js2-VAR (js2-node-type (js2-node-parent node))))
-         (setq indentation (+ 4 indentation))))
-     (indent-line-to indentation)
-     (when (> offset 0) (forward-char offset)))))
-
-;;(require 'js2-highlight-vars)
-
-(defun espresso-indention-js2-mode-hook ()
-  (require 'js)
-  (setq espresso-indent-level 2
-        indent-tabs-mode nil
-        c-basic-offset 2)
-  (c-toggle-auto-state 0)
-  (c-toggle-hungry-state 1)
-  (set (make-local-variable 'indent-line-function) 'espresso-js2-indent-function)
-  
-  (define-key js2-mode-map [(return)] 'newline-and-indent)
-  (define-key js2-mode-map [(backspace)] 'c-electric-backspace)
-  (define-key js2-mode-map [(control d)] 'c-electric-delete-forward)
-  
-  (if (featurep 'js2-highlight-vars)
-      (js2-highlight-vars-mode))
-  (message "Espresso-indention for JS2 hook"))
-
-(add-hook 'js2-mode-hook 'espresso-indention-js2-mode-hook)
-
-;; coffee-mode
-
-(require 'coffee-mode)
-(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
-(add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
 
 ;; ido
 
 (require 'ido)
 (ido-mode t)
 (setq ido-enable-flex-matching t)
-
-;; csv-mode
-;; not working
-
-(autoload 'csv-mode "csv-mode" "CSV editing mode." t)
-(add-to-list 'auto-mode-alist '("\.csv$" . csv-mode))
-;(add-to-list 'interpreter-mode-alist '("csv" . csv-mode))
-
-;; paredit
-
-(autoload 'paredit-mode "paredit" t)
-
-(add-hook 'emacs-lisp-mode-hook
-          (lambda ()
-	    (paredit-mode +1)
-	    (setq abbrev-mode t)))
-
-(add-hook 'lisp-mode-hook
-          (lambda ()
-	    (paredit-mode +1)
-	    (setq abbrev-mode t)))
-
-(add-hook 'clojure-mode-hook
-          (lambda ()
-	    (paredit-mode +1)
-	    (setq abbrev-mode t)))
-
-(eval-after-load "paredit"
-  '(progn
-    (define-key paredit-mode-map (kbd ";")   'nil)
-    
-    (define-key paredit-mode-map (kbd ")")   'paredit-close-parenthesis)
-    (define-key paredit-mode-map (kbd "M-)") 'paredit-close-parenthesis-and-newline)
-  
-    (define-key paredit-mode-map (kbd "{")   'paredit-open-curly)
-    (define-key paredit-mode-map (kbd "}")   'paredit-close-curly)
-
-    (define-key paredit-mode-map (kbd "<M-left>") 'paredit-backward-barf-sexp)
-    (define-key paredit-mode-map (kbd "<M-right>") 'paredit-forward-slurp-sexp)
-
-    (define-key paredit-mode-map (kbd "<C-left>") 'backward-word)
-    (define-key paredit-mode-map (kbd "<C-right>") 'forward-word)))
-
-(define-key clojure-mode-map (kbd "DEL") 'paredit-backward-delete)
 
 ;; scss-mode
 
@@ -348,16 +300,6 @@
 
 (require 'uniquify)
 
-;; ruby-mode
-
-(add-to-list 'auto-mode-alist '("^Rakefile$" . ruby-mode))
-(setq ruby-deep-arglist nil)
-(setq ruby-deep-indent-paren nil)
-
-;; html-mode
-
-(add-to-list 'auto-mode-alist '("\\.ejs$" . html-mode))
-
 ;; sqli
 
 (defun sql-add-newline-first (output)
@@ -368,11 +310,6 @@
   (add-hook 'comint-preoutput-filter-functions
             'sql-add-newline-first))
 (add-hook 'sql-interactive-mode-hook 'sqli-add-hooks)
-
-;; markdown-mode
-
-;;(autoload 'markdown-mode "markdown-mode/markdown-mode.el" "Major mode for editing Markdown files" t)
-(setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
 
 ;; slamhound
 
@@ -427,78 +364,6 @@
 ;; buffer-move
 (require 'buffer-move)
 
-;; multiple-cursors
-(require 'multiple-cursors)
-
 ;; nrepl
 (add-hook 'nrepl-interaction-mode-hook
   'nrepl-turn-on-eldoc-mode)
-
-;; cljsbuild-mode
-
-(require 'cljsbuild-mode)
-
-
-;; Functions (load all files in defuns-dir)
-(setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
-(dolist (file (directory-files defuns-dir t "\\w+"))
-  (when (file-regular-p file)
-    (load file)))
-
-(require 'key-bindings)
-
-
-
-;; Installed packages:
-
-;; android-mode      0.2.1       installed  Minor mode for Android application development
-;; buffer-move       0.4         installed  Swap buffers between windows
-;; cljsbuild-mode    0.2.0       installed  A minor mode for the ClojureScript 'lein cljsbuild' command
-;; clojure-mode      1.11.5      installed  Major mode for Clojure code
-;; clojure-test-mode 1.6.0       installed  Minor mode for Clojure tests
-;; clojurescript-mode 0.5        installed  Major mode for ClojureScript code
-;; coffee-mode       0.4.1       installed  Major mode for CoffeeScript files
-;; csv-mode          1.50        installed  Major mode for editing comma-separated value files
-;; elein             0.2.2       installed  Running leiningen commands from emacs
-;; find-file-in-git-repo 0.1.2   installed  Utility to find files in a git repo
-;; find-file-in-project 3.2      installed  Find files in a project quickly.
-;; haml-mode         3.0.14      installed  Major mode for editing Haml files
-;; ido-yes-or-no     1.1         installed  Use Ido to answer yes-or-no questions
-;; js2-mode          20090814    installed  Improved JavaScript editing mode
-;; magit             1.2.0       installed  Control Git from Emacs.
-;; magithub          0.2         installed  Magit extensions for using GitHub
-;; markdown-mode     1.8.1       installed  Emacs Major mode for Markdown-formatted text files
-;; multiple-cursors  1.1.3       installed  Multiple cursors for Emacs.
-;; nrepl             0.1.6       installed  Client for Clojure nREPL
-;; paredit           22          installed  Minor mode for editing parentheses  -*- Mode: Emacs-Lisp -*-
-;; rvm               1.2         installed  Emacs integration for rvm
-;; sass-mode         3.0.14      installed  Major mode for editing Sass files
-;; scss-mode         0.5.0       installed  Major mode for editing SCSS files
-;; slime             20100404.1  installed  Superior Lisp Interaction Mode for Emacs
-;; slime-repl        20100404    installed  Read-Eval-Print Loop written in Emacs Lisp
-;; yaml-mode         0.0.7       installed  Major mode for editing YAML files  android-mode      0.2.1       installed  Minor mode for Android application development
-;; buffer-move       0.4         installed  Swap buffers between windows
-;; cljsbuild-mode    0.2.0       installed  A minor mode for the ClojureScript 'lein cljsbuild' command
-;; clojure-mode      1.11.5      installed  Major mode for Clojure code
-;; clojure-test-mode 1.6.0       installed  Minor mode for Clojure tests
-;; clojurescript-mode 0.5        installed  Major mode for ClojureScript code
-;; coffee-mode       0.4.1       installed  Major mode for CoffeeScript files
-;; csv-mode          1.50        installed  Major mode for editing comma-separated value files
-;; elein             0.2.2       installed  Running leiningen commands from emacs
-;; find-file-in-git-repo 0.1.2   installed  Utility to find files in a git repo
-;; find-file-in-project 3.2      installed  Find files in a project quickly.
-;; haml-mode         3.0.14      installed  Major mode for editing Haml files
-;; ido-yes-or-no     1.1         installed  Use Ido to answer yes-or-no questions
-;; js2-mode          20090814    installed  Improved JavaScript editing mode
-;; magit             1.2.0       installed  Control Git from Emacs.
-;; magithub          0.2         installed  Magit extensions for using GitHub
-;; markdown-mode     1.8.1       installed  Emacs Major mode for Markdown-formatted text files
-;; multiple-cursors  1.1.3       installed  Multiple cursors for Emacs.
-;; nrepl             0.1.6       installed  Client for Clojure nREPL
-;; paredit           22          installed  Minor mode for editing parentheses  -*- Mode: Emacs-Lisp -*-
-;; rvm               1.2         installed  Emacs integration for rvm
-;; sass-mode         3.0.14      installed  Major mode for editing Sass files
-;; scss-mode         0.5.0       installed  Major mode for editing SCSS files
-;; slime             20100404.1  installed  Superior Lisp Interaction Mode for Emacs
-;; slime-repl        20100404    installed  Read-Eval-Print Loop written in Emacs Lisp
-;; yaml-mode         0.0.7       installed  Major mode for editing YAML files
