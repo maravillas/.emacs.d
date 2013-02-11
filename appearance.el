@@ -1,5 +1,4 @@
-(setq visible-bell t
-      font-lock-maximum-decoration t
+(setq font-lock-maximum-decoration t
       color-theme-is-global t
       truncate-partial-width-windows nil)
 

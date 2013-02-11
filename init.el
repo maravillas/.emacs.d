@@ -50,18 +50,9 @@
 
 (setq is-mac (equal system-type 'darwin))
 
-;; packages
+;; Packages
 
-(require 'package)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
-
-;; Bleeding edge
-
-;;(add-to-list 'package-archives
-;;             '("marmalade" . "http://melpa.milkbox.net/packages/"))
-
-(package-initialize)
+(require 'setup-package)
 
 (require 'sane-defaults)
 
