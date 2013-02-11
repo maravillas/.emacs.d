@@ -1,3 +1,7 @@
+;; Auto indenting on newline
+
+(define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
+
 ;; magit
 (global-set-key (kbd "C-x g") 'magit-status)
 

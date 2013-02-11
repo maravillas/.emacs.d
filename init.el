@@ -83,8 +83,9 @@
 (require 'setup-perspective)
 (require 'setup-ffip)
 (require 'setup-html-mode)
-(require 'setup-paredit)
 (require 'setup-linum-mode)
+(require 'setup-ibuffer)
+(require 'setup-nrepl)
 
 ;; Language setup
 
@@ -93,6 +94,8 @@
 (eval-after-load 'clojure-mode '(require 'setup-clojure-mode))
 (eval-after-load 'markdown-mode '(require 'setup-markdown-mode))
 (require 'coffee-mode)
+
+(require 'setup-paredit)
 
 (require 'mode-mappings)
 
@@ -121,6 +124,10 @@
 
 (require 'smex)
 (smex-initialize)
+
+;; buffer-move
+
+(require 'buffer-move)
 
 ;; Setup key bindings
 
@@ -173,197 +180,9 @@
 ;; merge below into new setup
 
 
-;; Backup file naming
-
-(defun make-backup-file-name (FILE)                                             
-  (let ((dirname (concat "~/.backups/emacs/"                                    
-                         (format-time-string "%y/%m/%d/"))))                    
-    (if (not (file-exists-p dirname))                                           
-        (make-directory dirname t))                                             
-    (concat dirname (file-name-nondirectory FILE))))
-
 ;; js2-mode
 
 ;;(autoload 'js-mode "js")
 
-
-;; ido
-
-(require 'ido)
-(ido-mode t)
-(setq ido-enable-flex-matching t)
-
-;; scss-mode
-
-(require 'scss-mode)
-
-;------ clojure-test-mode ------;
-	    
-;; (autoload 'clojure-test-mode "clojure-test-mode" "\
-;; A minor mode for running Clojure tests.
-
-;; \(fn &optional ARG)" t nil)
-
-;; (defun clojure-test-maybe-enable nil "\
-;; Enable clojure-test-mode if the current buffer contains Clojure tests.
-;; Also will enable it if the file is in a test directory." (save-excursion (goto-char (point-min)) (if (or (search-forward "(deftest" nil t) (search-forward "(with-test" nil t) (string-match "/test/$" default-directory)) (clojure-test-mode t))))
-
-;; (add-hook 'clojure-mode-hook 'clojure-test-maybe-enable)
-
-;; lazy-test indention
-
-(eval-after-load 'clojure-mode
-  '(define-clojure-indent
-     (describe 'defun)
-     (testing 'defun)
-     (given 'defun)
-     (using 'defun)
-     (with 'defun)
-     (it 'defun)
-     (do-it 'defun)))
-
-;; SLIME
-
-(defun my-slime-repl-mode-hook ()
-  (local-set-key "\C-c\C-s" 'slime-selector)
-  (def-slime-selector-method ?j
-    "most recently visited clojure-mode buffer."
-    (slime-recently-visited-buffer 'clojure-mode)))
-    
-(add-hook 'slime-repl-mode-hook 'my-slime-repl-mode-hook)
-(add-hook 'slime-repl-mode-hook (lambda () (paredit-mode +1)))
-
-(defun fix-paredit-repl ()
-  (interactive)
-  (local-set-key "{" 'paredit-open-curly)
-  (local-set-key "}" 'paredit-close-curly)
-  (modify-syntax-entry ?\{ "(}") 
-  (modify-syntax-entry ?\} "){")
-  (modify-syntax-entry ?\[ "(]")
-  (modify-syntax-entry ?\] ")["))
-
-(fix-paredit-repl)
-
-;; elein
-
-(require 'elein)
-
-;; ibuffer
-
-(autoload 'ibuffer "ibuffer" "List buffers." t)
-
-(setq ibuffer-saved-filter-groups
-      (quote (("default"
-               ("js" (mode . js2-mode))
-               ("ejs" (name . "\.ejs$"))
-               ("magit" (name . "^\\*magit"))
-               ("emacs" (name . "^\\*.*\\*$"))
-               ("clj" (name . "\.clj$"))
-               ("cljs" (name . "\.cljs$"))
-               ("css" (name . "\.css$"))
-               ("org" (mode . org-mode))
-               ("xml" (mode . nxml-mode))
-               ("java" (mode . java-mode))
-               ("controllers" (name . "/controllers/"))
-               ("models" (name . "/models/"))
-               ("views" (name . "/views/"))
-               ("migrations" (name . "/db/migrate/"))))))
-
-(add-hook 'ibuffer-mode-hook
-          (lambda ()
-            (ibuffer-auto-mode 1)
-            (ibuffer-switch-to-saved-filter-groups "default")))
-
-;; (define-ibuffer-sorter filename-or-dired
-;;   "Sort the buffers by their pathname."
-;;   (:description "filenames plus dired")
-;;   (string-lessp 
-;;    (with-current-buffer (car a)
-;;      (or buffer-file-name
-;;          (if (eq major-mode 'dired-mode)
-;;              (expand-file-name dired-directory))
-;;          ;; so that all non pathnames are at the end
-;;          "~"))
-;;    (with-current-buffer (car b)
-;;      (or buffer-file-name
-;;          (if (eq major-mode 'dired-mode)
-;;              (expand-file-name dired-directory))
-;;          ;; so that all non pathnames are at the end
-;;          "~"))))
-
-;; (define-key ibuffer-mode-map (kbd "s p")     'ibuffer-do-sort-by-filename-or-dired)
-
-(setq ibuffer-expert t)
-(setq ibuffer-show-empty-filter-groups nil)
-
-;; uniquify
-
-(require 'uniquify)
-
-;; sqli
-
-(defun sql-add-newline-first (output)
-  "Add newline to beginning of OUTPUT for `comint-preoutput-filter-functions'"
-  (concat "\n" output))
-(defun sqli-add-hooks ()
-  "Add hooks to `sql-interactive-mode-hook'."
-  (add-hook 'comint-preoutput-filter-functions
-            'sql-add-newline-first))
-(add-hook 'sql-interactive-mode-hook 'sqli-add-hooks)
-
-;; slamhound
-
-(defun slamhound ()
-  (interactive)
-  (let ((result (first (slime-eval `(swank:eval-and-grab-output
-                                      (format "(do (require 'slam.hound)
-                                                 (slam.hound/reconstruct \"%s\"))"
-                                              ,buffer-file-name))))))
-    (goto-char (point-min))
-    (kill-sexp)
-    (insert result)))
-
-;; android.el
-
-(add-to-list 'load-path "~/android-sdks/tools/lib")
-(require 'android)
-
-;; android-mode
-
-(require 'android-mode)
-
-;; Key customizations
-
-(define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
-
-(setq column-number-mode t)
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-
-;; Disable some beeps
-
-(defun my-bell-function ()
-  (unless (memq this-command
-                '(isearch-abort abort-recursive-edit exit-minibuffer
-                                keyboard-quit mwheel-scroll down up next-line previous-line
-                                backward-char forward-char))
-    (ding)))
-(setq ring-bell-function 'my-bell-function)
-
-(global-hl-line-mode 1)
-(set-face-background 'hl-line "#222")
-
 ;; (custom-set-variables '(slime-net-coding-system (quote utf-8-unix)))
 
-;; buffer-move
-(require 'buffer-move)
-
-;; nrepl
-(add-hook 'nrepl-interaction-mode-hook
-  'nrepl-turn-on-eldoc-mode)

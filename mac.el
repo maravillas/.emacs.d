@@ -41,4 +41,8 @@
 
 (setq magit-git-executable "/usr/bin/git")
 
+;; Android SDK tools
+
+(add-to-list 'load-path "~/android-sdks/tools/lib")
+
 (provide 'mac)

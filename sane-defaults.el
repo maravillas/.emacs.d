@@ -137,4 +137,24 @@
     (dotimes (i 10)
       (when (= p (point)) ad-do-it))))
 
+;; Uniquify buffer names
+
+(require 'uniquify)
+
+;; Disable some beeps
+
+(defun my-bell-function ()
+  (unless (memq this-command
+                '(isearch-abort
+                  abort-recursive-edit
+                  exit-minibuffer
+                  keyboard-quit
+                  mwheel-scroll
+                  down up
+                  next-line previous-line
+                  backward-char forward-char))
+    (ding)))
+
+(setq ring-bell-function 'my-bell-function)
+
 (provide 'sane-defaults)

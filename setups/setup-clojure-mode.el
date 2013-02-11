@@ -23,4 +23,16 @@
      (define-key nrepl-mode-map (kbd "C-,") 'complete-symbol)
      (define-key nrepl-interaction-mode-map (kbd "C-,") 'complete-symbol)))
 
+;; lazy-test indention
+
+(eval-after-load 'clojure-mode
+  '(define-clojure-indent
+     (describe 'defun)
+     (testing 'defun)
+     (given 'defun)
+     (using 'defun)
+     (with 'defun)
+     (it 'defun)
+     (do-it 'defun)))
+
 (provide 'setup-clojure-mode)
