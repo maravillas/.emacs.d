@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: column
+# key: col
+# --
+<column name="$1" type="$2">
+  $0
+</column>
