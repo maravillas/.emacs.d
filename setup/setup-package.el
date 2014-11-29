@@ -1,16 +1,6 @@
 ;; Init package manager and set up ELPA repository
 (require 'package)
 
-(setq package-archives
-      '(;("marmalade" . "http://marmalade-repo.org/packages/")
-        ("gnu" . "http://elpa.gnu.org/packages/")
-        ("melpa" . "http://melpa.milkbox.net/packages/")))
-
-(unless (and ;(file-exists-p "~/.emacs.d/elpa/archives/marmalade")
-             (file-exists-p "~/.emacs.d/elpa/archives/gnu")
-             (file-exists-p "~/.emacs.d/elpa/archives/melpa"))
-  (package-refresh-contents))
-
 ;; (defun packages-install (&rest packages)
 ;;   (mapc (lambda (package)
 ;;           (let ((name (car package))

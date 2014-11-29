@@ -72,10 +72,6 @@
 (ensure-package-installed 'find-file-in-project)
 (require 'setup-ffip)
 
-(require 'setup-html-mode)
-
-(require 'setup-linum-mode)
-
 (ensure-package-installed 'ibuffer)
 (require 'setup-ibuffer)
 
@@ -94,6 +90,10 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Modes
+
+(require 'setup-html-mode)
+
+(require 'setup-linum-mode)
 
 (ensure-package-installed 'org)
 (require 'setup-org)
@@ -124,6 +124,8 @@
 (ensure-package-installed 'paredit)
 (require 'setup-paredit)
 
+(ensure-package-installed 'company)
+(require 'setup-company-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Defuns
@@ -183,6 +185,14 @@
 (diminish 'abbrev-mode)
 (diminish 'anzu-mode)
 
+;; Base exec-path on shell's PATH, mostly for lein and CIDER
+
+(ensure-package-installed 'exec-path-from-shell)
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+
+(ensure-package-installed 'smartscan)
+(require 'setup-smartscan)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Customizations
@@ -204,8 +214,23 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(coffee-tab-width 2)
+ '(company-show-numbers t)
  '(css-indent-level 2)
  '(css-indent-offset 2)
  '(inhibit-startup-screen t)
+ '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(show-paren-mode t)
  '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify)))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-scrollbar-bg ((t (:inherit company-tooltip :background "#1c1c1c"))))
+ '(company-scrollbar-fg ((t (:background "#7f8c8d"))))
+ '(company-tooltip ((t (:background "#222" :foreground "#888"))))
+ '(company-tooltip-common ((t (:inherit company-tooltip :foreground "#ddd"))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :foreground "#c0392b"))))
+ '(company-tooltip-selection ((t (:inherit company-tooltip :background "#444")))))
