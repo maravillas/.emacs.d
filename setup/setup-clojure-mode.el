@@ -32,7 +32,7 @@
           (lambda ()
             (clj-refactor-mode 1)
             (cljr-add-keybindings-with-prefix "M-r")
-            (define-key clj-refactor-map (kbd "C-x C-r") 'cljr-rename-file)))
+            (define-key clj-refactor-map (kbd "C-x C-r") 'cljr-rename-file-or-dir)))
 
 
 (provide 'setup-clojure-mode)

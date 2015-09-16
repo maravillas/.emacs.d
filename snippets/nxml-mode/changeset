@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: changeset
+# key: cs
+# --
+<changeSet id="$1" author="${2:matthew.maravillas@eleostech.com}">
+  $0
+</changeSet>

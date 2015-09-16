@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: create-table
+# key: ct
+# --
+<createTable tableName="$1">
+  $0
+</createTable>

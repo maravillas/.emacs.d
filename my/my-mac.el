@@ -37,10 +37,6 @@
 
 (setq ispell-program-name "/usr/local/bin/aspell")
 
-;; Git executable
-
-(setq magit-git-executable "/usr/bin/git")
-
 ;; Android SDK tools
 
 (add-to-list 'load-path "~/android-sdks/tools/lib")

@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: create-index
+# key: cidx
+# --
+<createIndex tableName="$1"
+             indexName="idx_$1_$2"
+             unique="$3">
+  <column name="$2" type="$4"/>
+</createIndex>

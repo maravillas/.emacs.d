@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: foreign-key
+# key: fk
+# --
+<column name="$1_id" type="bigint">
+  <constraints nullable="true"
+               references="$1(id)"
+               foreignKeyName="$2_$1_fkey"/>
+</column>

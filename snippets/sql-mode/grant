@@ -1,0 +1,8 @@
+# -*- mode: sql-mode -*-
+# name: Grant privs
+# key: grant
+# --
+# if you ever need to support more than pg, do something like
+# ALTER TABLE $1 `(if (eq sql-product 'mysql) "ADD" "FROB")` COLUMN \`$2\` $3;
+
+GRANT ${1: ALL} ON $2 TO $3;

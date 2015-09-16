@@ -3,6 +3,7 @@
 (add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
 
 (setq org-agenda-files (list "~/org/todo.org"))
+(setq org-startup-indented t)
 
 (defun myorg-update-parent-cookie ()
   (when (equal major-mode 'org-mode)

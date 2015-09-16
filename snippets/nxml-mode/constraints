@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: constraints
+# key: cons
+# --
+<constraints${1: primaryKey="true"}${2: nullable="false"}${3: unique="true"}$0/>

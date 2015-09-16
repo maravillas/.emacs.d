@@ -1,7 +1,7 @@
 
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
-        ("melpa" . "http://melpa.milkbox.net/packages/")))
+        ("melpa" . "http://melpa.org/packages/")))
 
 (unless (and (file-exists-p "~/.emacs.d/elpa/archives/gnu")
              (file-exists-p "~/.emacs.d/elpa/archives/melpa"))
@@ -42,6 +42,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Packages and whatnot
+
+(ensure-package-installed 'cl-lib)
 
 (ensure-package-installed 'ido)
 (ensure-package-installed 'ido-ubiquitous)
@@ -105,6 +107,8 @@
 (eval-after-load 'ruby-mode '(require 'setup-ruby-mode))
 ;;(eval-after-load 'ruby-mode '(require 'ruby-mode-indent-fix))
 
+(ensure-package-installed 'haml-mode)
+
 (ensure-package-installed 'clojure-mode)
 (ensure-package-installed 'clj-refactor)
 (require 'setup-clojure-mode)
@@ -127,6 +131,9 @@
 (ensure-package-installed 'company)
 (require 'setup-company-mode)
 
+(ensure-package-installed 'sql)
+(require 'setup-sql-mode)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Defuns
 
@@ -142,9 +149,6 @@
 (ensure-package-installed 'anzu)
 (require 'setup-anzu)
 
-(ensure-package-installed 'guide-key)
-(require 'setup-guide-key)
-
 (ensure-package-installed 'expand-region)
 (require 'expand-region)
 
@@ -153,6 +157,12 @@
 
 (ensure-package-installed 'wgrep)
 (require 'wgrep)
+
+(ensure-package-installed 'clj-refactor)
+(require 'setup-clj-refactor)
+
+(ensure-package-installed 'guide-key)
+(require 'setup-guide-key)
 
 ;; Fill column indicator
 
@@ -194,6 +204,9 @@
 (ensure-package-installed 'smartscan)
 (require 'setup-smartscan)
 
+(ensure-package-installed 'smooth-scrolling)
+(require 'smooth-scrolling)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Customizations
 
@@ -220,6 +233,7 @@
  '(css-indent-offset 2)
  '(inhibit-startup-screen t)
  '(initial-frame-alist (quote ((fullscreen . maximized))))
+ '(mouse-wheel-progressive-speed t)
  '(show-paren-mode t)
  '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify)))
 
