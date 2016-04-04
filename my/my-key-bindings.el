@@ -59,11 +59,6 @@
 (global-set-key (kbd "C-<")     'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
-;; ace-jump-mode
-
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-(define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
-
 ;; Smart M-x
 
 (global-set-key (kbd "M-x") 'smex)
