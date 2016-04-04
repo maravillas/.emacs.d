@@ -63,12 +63,16 @@
 (define-key js2-mode-map (kbd "C-x C-r") 'js2r-rename-current-buffer-file)
 (define-key js2-mode-map (kbd "C-x C-k") 'js2r-delete-current-buffer-file)
 
+
+;; 1/13/16 - this is screwy, maybe an interaction with something else?
+;; closing the parameter list paren causes the cursor to jump back to mid-"function"
+
 ;; Use lambda for anonymous functions
-(font-lock-add-keywords
- 'js2-mode `(("\\(function\\) *("
-              (0 (progn (compose-region (match-beginning 1)
-                                        (match-end 1) "\u0192")
-                        nil)))))
+;;(font-lock-add-keywords
+;; 'js2-mode `(("\\(function\\) *("
+;;              (0 (progn (compose-region (match-beginning 1)
+;;                                        (match-end 1) "\u0192")
+;;                        nil)))))
 
 ;; Use right arrow for return in one-line functions
 (font-lock-add-keywords

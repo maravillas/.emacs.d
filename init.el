@@ -93,6 +93,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Modes
 
+;;(ensure-package-installed 'aggressive-indent-mode)
+
 (require 'setup-html-mode)
 
 (require 'setup-linum-mode)
@@ -231,6 +233,9 @@
  '(company-show-numbers t)
  '(css-indent-level 2)
  '(css-indent-offset 2)
+ '(custom-safe-themes
+   (quote
+    ("8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
  '(inhibit-startup-screen t)
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(mouse-wheel-progressive-speed t)
