@@ -4,18 +4,21 @@
       (quote (("default"
                ("js" (mode . js2-mode))
                ("ejs" (name . "\.ejs$"))
+               ("erl" (mode . erlang-mode))
+               ("magit proc" (name . "^\\*magit-"))
                ("magit" (name . "^\\*magit"))
                ("emacs" (name . "^\\*.*\\*$"))
-               ("clj" (name . "\.clj$"))
-               ("cljs" (name . "\.cljs$"))
+               ("clj" (or
+                       (name . "\.clj$")
+                       (name . "\.clj<[^>]+>$")))
+               ("cljs" (or
+                        (name . "\.cljs$")
+                        (name . "\.cljs<[^>]+>$")))
                ("css" (name . "\.css$"))
                ("org" (mode . org-mode))
                ("xml" (mode . nxml-mode))
                ("java" (mode . java-mode))
-               ("controllers" (name . "/controllers/"))
-               ("models" (name . "/models/"))
-               ("views" (name . "/views/"))
-               ("migrations" (name . "/db/migrate/"))))))
+               ("ruby" (mode . ruby-mode))))))
 
 (add-hook 'ibuffer-mode-hook
           (lambda ()
@@ -40,6 +43,13 @@
 ;;          "~"))))
 
 ;; (define-key ibuffer-mode-map (kbd "s p")     'ibuffer-do-sort-by-filename-or-dired)
+
+(setq ibuffer-formats
+      '((mark modified read-only " "
+              (name 40 40 :left :elide) " "
+              (size 9 -1 :right) " "
+              (mode 16 16 :left :elide) " " filename-and-process)
+        (mark " " (name 16 -1) " " filename)))
 
 (setq ibuffer-expert t)
 (setq ibuffer-show-empty-filter-groups nil)
