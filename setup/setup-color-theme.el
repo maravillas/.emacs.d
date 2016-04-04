@@ -26,8 +26,13 @@
       (font-lock-warning-face ((t (:foreground "Red" :bold t))))
       )))
 
+(setq frame-background-mode 'dark)
+
 (eval-after-load "color-theme"
   '(progn
-     (color-theme-maravillas)))
+     ;;(color-theme-maravillas)
+     (load-theme 'solarized t)
+     (set-background-color "#060606")
+     ))
 
 (provide 'setup-color-theme)
