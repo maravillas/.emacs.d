@@ -67,6 +67,7 @@
             (cljr-add-keybindings-with-prefix "M-r")
             (define-key clj-refactor-map (kbd "C-x C-r") 'cljr-rename-file-or-dir)))
 
-(add-hook 'clojure-mode-hook #'aggressive-indent-mode)
+;; changed my mind, this is more annoying than it is useful
+;;(add-hook 'clojure-mode-hook #'aggressive-indent-mode)
 
 (provide 'setup-clojure-mode)

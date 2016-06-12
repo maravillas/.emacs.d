@@ -68,6 +68,9 @@
 (ensure-package-installed 'yasnippet)
 (require 'setup-yasnippet)
 
+(ensure-package-installed 'datomic-snippets)
+(require 'datomic-snippets)
+
 ;; TODO Examine
 ;;(require 'setup-perspective)
 
@@ -168,9 +171,9 @@
 
 ;; Fill column indicator
 
-(ensure-package-installed 'fill-column-indicator)
-(require 'fill-column-indicator)
-(setq fci-rule-color "#111122")
+;;(ensure-package-installed 'fill-column-indicator)
+;;(require 'fill-column-indicator)
+;;(setq fci-rule-color "#111122")
 
 ;; Browse kill ring
 
