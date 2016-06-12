@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: add-column
+# key: ac
+# --
+<addColumn tableName="$1">
+  <column name="$2" type="$3">
+    $0
+  </column>
+</addColumn>

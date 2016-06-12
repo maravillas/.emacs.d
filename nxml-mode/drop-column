@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: drop-column
+# key: dc
+# --
+<dropColumn tableName="$1" columnName="$2"/>
