@@ -70,4 +70,6 @@
 ;; changed my mind, this is more annoying than it is useful
 ;;(add-hook 'clojure-mode-hook #'aggressive-indent-mode)
 
+'(cljr-auto-clean-ns nil)
+
 (provide 'setup-clojure-mode)
