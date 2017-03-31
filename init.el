@@ -92,6 +92,10 @@
 (ensure-package-installed 'undo-tree)
 (require 'setup-undo-tree)
 
+(ensure-package-installed 'ag)
+(ensure-package-installed 'wgrep-ag)
+(require 'setup-ag)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Modes

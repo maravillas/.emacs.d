@@ -31,7 +31,8 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (global-set-key [C-x k] 'kill-this-buffer)
-(global-set-key (kbd "C-c r") 'rgrep)
+(global-set-key (kbd "C-c r") 'ag)
+(global-set-key (kbd "C-c C-r") 'ag-files)
 (global-set-key [f11] 'revert-buffer)
 
 ;; buffer-move

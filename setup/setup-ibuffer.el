@@ -8,6 +8,8 @@
                ("magit proc" (name . "^\\*magit-"))
                ("magit" (name . "^\\*magit"))
                ("emacs" (name . "^\\*.*\\*$"))
+               ("ag" (name . "^\\*ag search"))
+               ("scratch" (name . "^\\*scratch"))
                ("clj" (or
                        (name . "\.clj$")
                        (name . "\.clj<[^>]+>$")))
