@@ -72,4 +72,11 @@
 
 '(cljr-auto-clean-ns nil)
 
+;; Start figwheel in cljs repl
+;; https://cider.readthedocs.io/en/latest/up_and_running/#using-the-figwheel-repl-leiningen-only
+(setq cider-cljs-lein-repl "(do (use 'figwheel-sidecar.repl-api) (start-figwheel!) (cljs-repl))")
+
+;; https://github.com/clojure-emacs/cider/issues/1533
+(put-clojure-indent 'defui '(2 nil nil (1)))
+
 (provide 'setup-clojure-mode)
