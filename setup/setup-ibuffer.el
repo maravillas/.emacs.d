@@ -2,13 +2,13 @@
 
 (setq ibuffer-saved-filter-groups
       (quote (("default"
-               ("js" (mode . js2-mode))
+               ("js" (mode . javascript-mode))
                ("ejs" (name . "\.ejs$"))
                ("erl" (mode . erlang-mode))
                ("magit proc" (name . "^\\*magit-"))
                ("magit" (name . "^\\*magit"))
-               ("emacs" (name . "^\\*.*\\*$"))
                ("ag" (name . "^\\*ag search"))
+               ("emacs" (name . "^\\*.*\\*$"))
                ("scratch" (name . "^\\*scratch"))
                ("clj" (or
                        (name . "\.clj$")

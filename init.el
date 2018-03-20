@@ -85,7 +85,6 @@
 ;;(ensure-package-installed 'cider 'melpa-stable)
 (require 'setup-cider)
 
-
 ;; TODO Examine
 ;;(require 'setup-android-mode)
 
@@ -109,8 +108,15 @@
 (ensure-package-installed 'org)
 (require 'setup-org)
 
-(require 'setup-js2-mode)
+;; 3/23 disabled to try web-mode, mostly for es6
+;;(require 'setup-js2-mode)
 ;;(require 'js2-refactor)
+
+(ensure-package-installed 'flycheck)
+(require 'setup-flycheck)
+
+(ensure-package-installed 'web-mode)
+(require 'setup-web-mode)
 
 (ensure-package-installed 'ruby-mode)
 (eval-after-load 'ruby-mode '(require 'setup-ruby-mode))
