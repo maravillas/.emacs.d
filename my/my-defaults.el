@@ -156,4 +156,7 @@
 
 (setq ring-bell-function 'my-bell-function)
 
+(require 're-builder)
+(setq reb-re-syntax 'string)
+
 (provide 'my-defaults)

@@ -8,6 +8,9 @@
                ("magit proc" (name . "^\\*magit-"))
                ("magit" (name . "^\\*magit"))
                ("ag" (name . "^\\*ag search"))
+               ("nrepl" (or
+                         (name . "^\\*nrepl")
+                         (name . "^\\*cider")))
                ("emacs" (name . "^\\*.*\\*$"))
                ("scratch" (name . "^\\*scratch"))
                ("clj" (or
@@ -16,11 +19,15 @@
                ("cljs" (or
                         (name . "\.cljs$")
                         (name . "\.cljs<[^>]+>$")))
+               ("cljc" (or
+                       (name . "\.cljc$")
+                       (name . "\.cljc<[^>]+>$")))
                ("css" (name . "\.css$"))
                ("org" (mode . org-mode))
                ("xml" (mode . nxml-mode))
                ("java" (mode . java-mode))
-               ("ruby" (mode . ruby-mode))))))
+               ("ruby" (mode . ruby-mode))
+               ("cs" (mode . csharp-mode))))))
 
 (add-hook 'ibuffer-mode-hook
           (lambda ()
