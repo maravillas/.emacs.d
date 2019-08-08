@@ -68,9 +68,6 @@
 (ensure-package-installed 'yasnippet)
 (require 'setup-yasnippet)
 
-(ensure-package-installed 'datomic-snippets)
-(require 'datomic-snippets)
-
 ;; TODO Examine
 ;;(require 'setup-perspective)
 

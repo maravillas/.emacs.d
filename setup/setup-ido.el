@@ -1,5 +1,11 @@
 ;; Interactively Do Things
 
+;; Suppress free var warnings
+(defvar ido-context-switch-command nil)
+(defvar ido-cur-item nil)
+(defvar ido-default-item nil)
+(defvar ido-cur-list nil)
+
 (require 'ido)
 (ido-mode t)
 (setq ido-enable-prefix nil

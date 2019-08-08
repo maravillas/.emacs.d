@@ -5,8 +5,8 @@
                ("js" (mode . javascript-mode))
                ("ejs" (name . "\.ejs$"))
                ("erl" (mode . erlang-mode))
-               ("magit proc" (name . "^\\*magit-"))
-               ("magit" (name . "^\\*magit"))
+               ("magit proc" (name . "^\\magit-"))
+               ("magit" (name . "^\\magit:"))
                ("ag" (name . "^\\*ag search"))
                ("nrepl" (or
                          (name . "^\\*nrepl")
@@ -23,6 +23,7 @@
                        (name . "\.cljc$")
                        (name . "\.cljc<[^>]+>$")))
                ("css" (name . "\.css$"))
+               ("dir" (mode . dired-mode))
                ("org" (mode . org-mode))
                ("xml" (mode . nxml-mode))
                ("java" (mode . java-mode))

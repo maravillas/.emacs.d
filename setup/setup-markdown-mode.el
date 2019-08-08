@@ -14,4 +14,7 @@
           (lambda ()
             (setq imenu-generic-expression markdown-imenu-generic-expression)))
 
+(setq markdown-command "multimarkdown")
+
+
 (provide 'setup-markdown-mode)
