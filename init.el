@@ -51,6 +51,7 @@
 
 (ensure-package-installed 'dash)
 (ensure-package-installed 'dired-single)
+(ensure-package-installed 'dired-narrow)
 (require 'setup-dired)
 
 (ensure-package-installed 'magit)
@@ -146,6 +147,12 @@
 (ensure-package-installed 'sql)
 (require 'setup-sql-mode)
 
+(ensure-package-installed 'rjsx-mode)
+(require 'setup-rjsx-mode)
+
+(ensure-package-installed 'elixir-mode)
+(require 'setup-elixir-mode)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Defuns
 
@@ -218,6 +225,8 @@
 
 (ensure-package-installed 'smooth-scrolling)
 (require 'smooth-scrolling)
+
+(ensure-package-installed 'string-inflection)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Customizations
