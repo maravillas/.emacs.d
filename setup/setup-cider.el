@@ -5,7 +5,7 @@
 (add-hook 'cider-interaction-mode-hook 'eldoc-mode)
 (add-hook 'cider-mode-hook 'eldoc-mode)
 (setq nrepl-hide-special-buffers nil)
-(setq cider-repl-history-file "/Users/maravillas/.emacs.d/.cider-history")
+(setq cider-repl-history-file "~/.emacs.d/.cider-history")
 (setq cider-auto-select-error-buffer nil)
 
 (provide 'setup-cider)

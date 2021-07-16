@@ -1,3 +1,8 @@
+
+(when is-linux
+  (setq x-super-keysym 'meta)
+  (setq x-meta-keysym 'super))
+
 ;; Auto indenting on newline
 
 (define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
@@ -391,6 +396,8 @@
 ;; Defined in editing-defuns.el
 (global-set-key (kbd "C-c +") 'increment-integer-at-point)
 (global-set-key (kbd "C-c -") 'decrement-integer-at-point)
+
+(global-set-key (kbd "s-l") 'goto-line)
 
 
 (define-key global-map [?\s-d] 'projectile-find-dir)

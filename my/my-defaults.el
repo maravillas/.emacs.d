@@ -41,6 +41,8 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+(setq visible-bell t)
+
 ;; UTF-8 please
 
 (setq locale-coding-system 'utf-8) ; pretty

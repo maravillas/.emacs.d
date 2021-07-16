@@ -42,7 +42,7 @@
 (add-to-list 'ido-ignore-directories "node_modules")
 
 ;; Use ido everywhere
-(require 'ido-ubiquitous)
+(require 'ido-completing-read+)
 (ido-ubiquitous-mode 1)
 
 ;; Fix ido-ubiquitous for newer packages

@@ -6,6 +6,8 @@
 ;; No need to be stingy
 (setq ffip-limit 4096)
 
+(setq ffip-ignore-filenames '("*.beam"))
+
 ;; Helper methods to create local settings
 
 (defun ffip--create-exclude-find-options (names)

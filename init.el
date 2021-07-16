@@ -3,6 +3,9 @@
       '(("gnu" . "http://elpa.gnu.org/packages/")
         ("melpa" . "http://melpa.org/packages/")))
 
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+
 (unless (and (file-exists-p "~/.emacs.d/elpa/archives/gnu")
              (file-exists-p "~/.emacs.d/elpa/archives/melpa"))
   (package-refresh-contents))
@@ -32,6 +35,7 @@
 ;; Flags
 
 (setq is-mac (equal system-type 'darwin))
+(setq is-linux (equal system-type 'gnu/linux))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -46,12 +50,11 @@
 (ensure-package-installed 'cl-lib)
 
 (ensure-package-installed 'ido)
-(ensure-package-installed 'ido-ubiquitous)
+(ensure-package-installed 'ido-completing-read+)
 (require 'setup-ido)
 
 (ensure-package-installed 'dash)
 (ensure-package-installed 'dired-single)
-(ensure-package-installed 'dired-narrow)
 (require 'setup-dired)
 
 (ensure-package-installed 'magit)
@@ -99,6 +102,7 @@
 
 ;;(ensure-package-installed 'aggressive-indent-mode)
 
+(ensure-package-installed 'tagedit)
 (require 'setup-html-mode)
 
 (require 'setup-linum-mode)
@@ -146,9 +150,6 @@
 
 (ensure-package-installed 'sql)
 (require 'setup-sql-mode)
-
-(ensure-package-installed 'rjsx-mode)
-(require 'setup-rjsx-mode)
 
 (ensure-package-installed 'elixir-mode)
 (require 'setup-elixir-mode)
@@ -215,9 +216,10 @@
 (diminish 'anzu-mode)
 
 ;; Base exec-path on shell's PATH, mostly for lein and CIDER
+;; (and now elixir/mix/erl shims, thus 'x)
 
 (ensure-package-installed 'exec-path-from-shell)
-(when (memq window-system '(mac ns))
+(when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 
 (ensure-package-installed 'smartscan)
@@ -225,8 +227,6 @@
 
 (ensure-package-installed 'smooth-scrolling)
 (require 'smooth-scrolling)
-
-(ensure-package-installed 'string-inflection)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Customizations
@@ -237,6 +237,7 @@
 (require 'my-appearance)
 (require 'my-misc)
 (when is-mac (require 'my-mac))
+(when is-linux (require 'my-linux))
 
 
 
@@ -255,9 +256,13 @@
  '(custom-safe-themes
    (quote
     ("8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
+ '(exec-path-from-shell-arguments nil)
  '(inhibit-startup-screen t)
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(mouse-wheel-progressive-speed t)
+ '(package-selected-packages
+   (quote
+    (sql-indent elixir-mode cider clojure-mode multiple-cursors paredit yaml-mode smooth-scrolling smartscan exec-path-from-shell diminish buffer-move smex browse-kill-ring guide-key expand-region anzu company scss-mode coffee-mode erlang markdown-mode tagedit wgrep-ag web-mode undo-tree ido-completing-read+ haml-mode flycheck find-file-in-project dired-single color-theme-solarized color-theme-modern clj-refactor ag)))
  '(show-paren-mode t)
  '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify)))
 
