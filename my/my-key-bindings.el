@@ -36,9 +36,8 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (global-set-key [C-x k] 'kill-this-buffer)
-(global-set-key (kbd "C-c r") 'ag)
-(global-set-key (kbd "C-c C-r") 'ag-files)
 (global-set-key [f11] 'revert-buffer)
+(global-set-key (kbd "C-c r") #'rg-menu)
 
 ;; buffer-move
 
@@ -133,9 +132,9 @@
 (global-set-key (kbd "M-w") 'save-region-or-current-line)
 (global-set-key (kbd "M-W") '(lambda () (interactive) (save-region-or-current-line 1)))
 
-;; Make shell more convenient, and suspend-frame less
+;; Make suspend-frame less convenient (but don't change shell anymore)
 
-(global-set-key (kbd "C-z") 'shell)
+;; (global-set-key (kbd "C-z") 'shell)
 (global-set-key (kbd "C-x M-z") 'suspend-frame)
 
 ;; Zap to char
@@ -333,20 +332,22 @@
 (global-set-key (kbd "C-x f") 'find-file-in-project)
 
 ;; Find file in project, with specific patterns
+;; TODO: fix missing lexical-let in ffip-create-pattern-file-finder defun
 
 (global-unset-key (kbd "C-x C-o")) ;; which used to be delete-blank-lines (also bound to C-c C-<return>)
-(global-set-key (kbd "C-x C-o ja") (ffip-create-pattern-file-finder "*.java"))
-(global-set-key (kbd "C-x C-o js") (ffip-create-pattern-file-finder "*.js"))
-(global-set-key (kbd "C-x C-o jp") (ffip-create-pattern-file-finder "*.jsp"))
-(global-set-key (kbd "C-x C-o cs") (ffip-create-pattern-file-finder "*.css"))
-(global-set-key (kbd "C-x C-o cl") (ffip-create-pattern-file-finder "*.clj"))
-(global-set-key (kbd "C-x C-o el") (ffip-create-pattern-file-finder "*.el"))
-(global-set-key (kbd "C-x C-o md") (ffip-create-pattern-file-finder "*.md"))
-(global-set-key (kbd "C-x C-o rb") (ffip-create-pattern-file-finder "*.rb"))
-(global-set-key (kbd "C-x C-o or") (ffip-create-pattern-file-finder "*.org"))
-(global-set-key (kbd "C-x C-o ph") (ffip-create-pattern-file-finder "*.php"))
-(global-set-key (kbd "C-x C-o tx") (ffip-create-pattern-file-finder "*.txt"))
-(global-set-key (kbd "C-x C-o vm") (ffip-create-pattern-file-finder "*.vm"))
+
+;;(global-set-key (kbd "C-x C-o ja") (ffip-create-pattern-file-finder "*.java"))
+;;(global-set-key (kbd "C-x C-o js") (ffip-create-pattern-file-finder "*.js"))
+;;(global-set-key (kbd "C-x C-o jp") (ffip-create-pattern-file-finder "*.jsp"))
+;;(global-set-key (kbd "C-x C-o cs") (ffip-create-pattern-file-finder "*.css"))
+;;(global-set-key (kbd "C-x C-o cl") (ffip-create-pattern-file-finder "*.clj"))
+;;(global-set-key (kbd "C-x C-o el") (ffip-create-pattern-file-finder "*.el"))
+;;(global-set-key (kbd "C-x C-o md") (ffip-create-pattern-file-finder "*.md"))
+;;(global-set-key (kbd "C-x C-o rb") (ffip-create-pattern-file-finder "*.rb"))
+;;(global-set-key (kbd "C-x C-o or") (ffip-create-pattern-file-finder "*.org"))
+;;(global-set-key (kbd "C-x C-o ph") (ffip-create-pattern-file-finder "*.php"))
+;;(global-set-key (kbd "C-x C-o tx") (ffip-create-pattern-file-finder "*.txt"))
+;;(global-set-key (kbd "C-x C-o vm") (ffip-create-pattern-file-finder "*.vm"))
 
 ;; View occurrence in occur mode
 
@@ -377,14 +378,6 @@
 (global-set-key (kbd "C-c y") 'bury-buffer)
 (global-set-key (kbd "C-x r v") 'revert-buffer)
 (global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
-
-;; Start eshell or switch to it if it's active.
-
-(global-set-key (kbd "C-x m") 'eshell)
-
-;; Start a new eshell even if one is active.
-
-(global-set-key (kbd "C-x M") (lambda () (interactive) (eshell t)))
 
 ;; Activate occur easily inside isearch
 

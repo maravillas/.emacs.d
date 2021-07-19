@@ -52,4 +52,6 @@
 
 (setq magit-push-always-verify nil)
 
+(setq magit-completing-read-function 'magit-ido-completing-read)
+
 (provide 'setup-magit)

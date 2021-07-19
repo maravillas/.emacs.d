@@ -1,31 +1,20 @@
-;; Init package manager and set up ELPA repository
+;; Init package manager and set up repositories
+
 (require 'package)
 
-;; (defun packages-install (&rest packages)
-;;   (mapc (lambda (package)
-;;           (let ((name (car package))
-;;                 (repo (cdr package)))
-;;             (when (not (package-installed-p name))
-;;               (let ((package-archives (list repo)))
-;;                 (package-initialize)
-;;                 (package-install name)))))
-;;         packages)
-;;   (package-initialize)
-;;   (delete-other-windows))
+(unless (assoc-default "melpa-stable" package-archives)
+  (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t))
+(unless (assoc-default "gnu" package-archives)
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t))
 
-;; (defun ensure-package-installed (package &optional repository)
+(unless (and (file-exists-p "~/.emacs.d/elpa/archives/gnu")
+             (file-exists-p "~/.emacs.d/elpa/archives/melpa-stable"))
+  (package-refresh-contents))
 
-(defun ensure-package-installed (package)
-  (unless (package-installed-p package)
-    (package-install package)))
-
-(defun sacha/package-install (package &optional repository)
-  "Install PACKAGE if it has not yet been installed.
-If REPOSITORY is specified, use that."
-  (unless (package-installed-p package)
-    (let ((package-archives (if repository
-                                (list (assoc repository package-archives))
-                              package-archives)))
-      (package-install package))))
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+(setq use-package-verbose t)
+(setq use-package-always-ensure t)
+(require 'use-package)
 
 (provide 'setup-package)

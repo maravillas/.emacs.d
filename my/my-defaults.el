@@ -16,6 +16,10 @@
 
 (global-auto-revert-mode 1)
 
+;; Line numbers mode
+
+(global-display-line-numbers-mode)
+
 ;; Also auto refresh dired, but be quiet about it
 
 (setq global-auto-revert-non-file-buffers t)
@@ -29,7 +33,7 @@
 
 (setq delete-by-moving-to-trash t)
 
-;; Real emacs knights don't use shift to mark things
+;; Don't use shift to mark things
 
 (setq shift-select-mode nil)
 
@@ -45,11 +49,11 @@
 
 ;; UTF-8 please
 
-(setq locale-coding-system 'utf-8) ; pretty
-(set-terminal-coding-system 'utf-8) ; pretty
-(set-keyboard-coding-system 'utf-8) ; pretty
-(set-selection-coding-system 'utf-8) ; please
-(prefer-coding-system 'utf-8) ; with sugar on top
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
 
 ;; Show active region
 
@@ -79,9 +83,10 @@
 
 (winner-mode 1)
 
-;; Never insert tabs
+;; Never insert tabs  
 
-(set-default 'indent-tabs-mode nil)
+(setq-default 'indent-tabs-mode nil)
+(setq-default tab-width 2)
 
 ;; Show me empty lines after buffer end
 

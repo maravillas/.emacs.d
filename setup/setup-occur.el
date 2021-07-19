@@ -1,5 +1,3 @@
-(require 'occur-mode)
-
 (defun occur-mode-clean-buffer ()
   "Removes all commentary from the *Occur* buffer, leaving the
  unadorned lines."

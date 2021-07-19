@@ -1,7 +1,12 @@
+(use-package solarized-theme
+  :config (progn
+	    (load-theme 'solarized-dark t)
+	    (set-background-color "#060606")))
+
 (setq font-lock-maximum-decoration t
-      color-theme-is-global t
-      truncate-partial-width-windows nil
-      font-lock-verbose nil)
+  color-theme-is-global t
+  truncate-partial-width-windows nil
+  font-lock-verbose nil)
 
 (set-face-background 'region "#464740")
 
@@ -9,7 +14,7 @@
 
 (global-hl-line-mode 1)
 
-;; Customize background color of lighlighted line
+;; Customize background color of highlighted line
 
 (set-face-background 'hl-line "#222222")
 
@@ -22,10 +27,10 @@
 
 (setq org-todo-keyword-faces
       '(
-        ("INPR" . (:foreground "yellow" :weight bold))
-        ("DONE" . (:foreground "green" :weight bold))
-        ("IMPEDED" . (:foreground "red" :weight bold))
-        ))
+	("INPR" . (:foreground "yellow" :weight bold))
+	("DONE" . (:foreground "green" :weight bold))
+	("IMPEDED" . (:foreground "red" :weight bold))
+	))
 
 ;; Highlight matching parentheses when the point is on them.
 

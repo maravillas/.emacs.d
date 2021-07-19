@@ -6,7 +6,6 @@
 (defvar ido-default-item nil)
 (defvar ido-cur-list nil)
 
-(require 'ido)
 (ido-mode t)
 (setq ido-enable-prefix nil
       ido-enable-flex-matching t
@@ -14,8 +13,7 @@
       ido-auto-merge-work-directories-length -1
       ido-create-new-buffer 'always
       ido-use-filename-at-point nil
-      ido-max-prospects 10
-      ido-use-faces nil)
+      ido-max-prospects 10)
 
 (add-hook
  'ido-setup-hook
@@ -40,20 +38,5 @@
 
 (add-to-list 'ido-ignore-directories "target")
 (add-to-list 'ido-ignore-directories "node_modules")
-
-;; Use ido everywhere
-(require 'ido-completing-read+)
-(ido-ubiquitous-mode 1)
-
-;; Fix ido-ubiquitous for newer packages
-(defmacro ido-ubiquitous-use-new-completing-read (cmd package)
-  `(eval-after-load ,package
-     '(defadvice ,cmd (around ido-ubiquitous-new activate)
-        (let ((ido-ubiquitous-enable-compatibility nil))
-          ad-do-it))))
-
-(ido-ubiquitous-use-new-completing-read webjump 'webjump)
-(ido-ubiquitous-use-new-completing-read yas/expand 'yasnippet)
-(ido-ubiquitous-use-new-completing-read yas/visit-snippet-file 'yasnippet)
 
 (provide 'setup-ido)

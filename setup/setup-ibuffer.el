@@ -5,6 +5,7 @@
                ("js" (mode . javascript-mode))
                ("ejs" (name . "\.ejs$"))
                ("erl" (mode . erlang-mode))
+               ("ex" (mode . elixir-mode))
                ("magit proc" (name . "^\\magit-"))
                ("magit" (name . "^\\magit:"))
                ("ag" (name . "^\\*ag search"))
