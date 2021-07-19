@@ -2,3 +2,9 @@
 /.places
 /elpa/
 /.cider-history
+/.DS_Store
+/ido.last
+/savehist
+/transient/
+/eshell/
+*~
